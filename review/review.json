@@ -12,6 +12,11 @@
     }
   ],
   "video": null,
-  "pr": null,
+  "pr": {
+    "url": "https://github.com/alissach/excalidraw-case-study/pull/1",
+    "title": "Make the Spaced toolbar the default",
+    "number": 1,
+    "status": "merged"
+  },
   "updated": "2026-11-19"
 }
