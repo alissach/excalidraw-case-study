@@ -1,9 +1,17 @@
 {
-  "title": "",
-  "summary": "",
-  "favorite": "",
-  "variations": [],
+  "title": "A roomier Excalidraw toolbar",
+  "summary": "The toolbar buttons were cramped: small targets, dead gaps between them, and no clear groups. The Spaced toolbar gives every control a 44px target, sorts the tools into five groups, and shows a bold focus ring when you use the keyboard.",
+  "favorite": "spaced",
+  "variations": [
+    {
+      "slug": "spaced",
+      "name": "Spaced",
+      "idea": "44px targets with no dead gaps, tools in clearly spaced groups, and a bold keyboard focus ring.",
+      "screenshot": "shots/spaced.png",
+      "why": "Every tool is easier to hit and the groups are quick to scan. It still fits in one row on a laptop, and it slims down to fit on a tablet."
+    }
+  ],
   "video": null,
   "pr": null,
-  "updated": ""
+  "updated": "2026-11-19"
 }
