@@ -1,0 +1,268 @@
+/* Spaced: big targets, clear groups, a focus ring you can't miss. */
+.toolbar-spaced {
+  --spaced-target: 44px;
+  --spaced-target-width: 44px;
+  --spaced-chip: 38px;
+  --spaced-chip-radius: 10px;
+  --spaced-icon: 20px;
+  --spaced-group-gap: 13px;
+  --spaced-pad: 4px;
+  --spaced-radius: 14px;
+  --spaced-ring: var(--color-primary);
+  --spaced-divider: var(--color-border-outline-variant);
+  --spaced-motion: 120ms ease-out;
+
+  position: relative;
+  box-sizing: border-box;
+  padding: var(--spaced-pad);
+  background: var(--island-bg-color);
+  border-radius: var(--spaced-radius);
+  box-shadow: var(--shadow-island);
+  font-family: var(--ui-font);
+}
+
+.toolbar-spaced.toolbar-spaced--zen {
+  box-shadow: none;
+}
+
+.toolbar-spaced .toolbar-spaced__bar {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+
+.toolbar-spaced .toolbar-spaced__group {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.toolbar-spaced .toolbar-spaced__group + .toolbar-spaced__group {
+  margin-inline-start: var(--spaced-group-gap);
+}
+
+/* a thin divider centered in the gap between groups */
+.toolbar-spaced .toolbar-spaced__group + .toolbar-spaced__group::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: calc(var(--spaced-group-gap) / -2 - 0.5px);
+  top: 12px;
+  bottom: 12px;
+  width: 1px;
+  background: var(--spaced-divider);
+}
+
+/* The button is the whole hit area; buttons touch, so there are no dead gaps.
+   The visible chip (::before) sits inside it. */
+.toolbar-spaced .toolbar-spaced__btn {
+  position: relative;
+  display: grid;
+  place-items: center;
+  flex: none;
+  box-sizing: border-box;
+  width: var(--spaced-target-width);
+  height: var(--spaced-target);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--spaced-chip-radius);
+  background: transparent;
+  color: var(--icon-fill-color);
+  font: inherit;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+.toolbar-spaced .toolbar-spaced__btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: var(--spaced-chip);
+  height: var(--spaced-chip);
+  border-radius: var(--spaced-chip-radius);
+  background: transparent;
+  transition: background-color var(--spaced-motion),
+    box-shadow var(--spaced-motion);
+}
+
+@media (hover: hover) {
+  .toolbar-spaced .toolbar-spaced__btn:not(:disabled):hover::before {
+    background: var(--button-hover-bg);
+  }
+}
+
+.toolbar-spaced .toolbar-spaced__btn:not(:disabled):active::before {
+  background: var(--button-hover-bg);
+  box-shadow: inset 0 0 0 1px var(--button-active-border);
+}
+
+.toolbar-spaced .toolbar-spaced__btn[aria-pressed="true"],
+.toolbar-spaced .toolbar-spaced__btn[data-selected="true"] {
+  color: var(--color-on-primary-container);
+}
+
+.toolbar-spaced .toolbar-spaced__btn[aria-pressed="true"]::before,
+.toolbar-spaced .toolbar-spaced__btn[data-selected="true"]::before {
+  background: var(--color-surface-primary-container);
+}
+
+.toolbar-spaced .toolbar-spaced__btn.is-fillable[aria-pressed="true"] svg {
+  fill: currentColor;
+}
+
+.toolbar-spaced .toolbar-spaced__btn:disabled {
+  cursor: default;
+  color: var(--color-disabled);
+}
+
+/* keyboard focus: a 2px ring with a gap around the chip, above neighbors */
+.toolbar-spaced .toolbar-spaced__btn:focus-visible {
+  z-index: 1;
+  outline: none;
+}
+
+.toolbar-spaced .toolbar-spaced__btn:focus-visible::before {
+  box-shadow: 0 0 0 2px var(--island-bg-color), 0 0 0 4px var(--spaced-ring);
+}
+
+.toolbar-spaced .toolbar-spaced__icon {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: var(--spaced-icon);
+  height: var(--spaced-icon);
+  pointer-events: none;
+}
+
+.toolbar-spaced .toolbar-spaced__icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.toolbar-spaced .toolbar-spaced__key {
+  position: absolute;
+  right: 6px;
+  bottom: 5px;
+  font-size: 10px;
+  line-height: 1;
+  color: var(--keybinding-color);
+  pointer-events: none;
+}
+
+.toolbar-spaced .toolbar-spaced__btn[aria-pressed="true"] .toolbar-spaced__key {
+  color: var(--color-on-primary-container);
+}
+
+.toolbar-spaced.toolbar-spaced--touch .toolbar-spaced__key,
+.toolbar-spaced.toolbar-spaced--zen .toolbar-spaced__key,
+.toolbar-spaced.toolbar-spaced--zen .HintViewer {
+  display: none;
+}
+
+/* the pen mode button (only with a pen) keeps Excalidraw's look, centered in
+   a full-size cell */
+.toolbar-spaced .ToolIcon__penMode {
+  display: grid;
+  place-items: center;
+  width: var(--spaced-target-width);
+  height: var(--spaced-target);
+}
+
+/* More tools */
+.toolbar-spaced .toolbar-spaced__more {
+  position: relative;
+  display: flex;
+}
+
+.toolbar-spaced .toolbar-spaced__menu {
+  position: absolute;
+  top: calc(100% + 10px);
+  inset-inline-end: calc(-1 * var(--spaced-pad));
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 232px;
+  padding: 6px;
+  box-sizing: border-box;
+  background: var(--island-bg-color);
+  border-radius: 12px;
+  box-shadow: var(--shadow-island-stronger, var(--shadow-island));
+}
+
+.toolbar-spaced .toolbar-spaced__item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 44px;
+  margin: 0;
+  padding: 0 12px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text-primary-color);
+  font: inherit;
+  font-size: 0.875rem;
+  text-align: start;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+@media (hover: hover) {
+  .toolbar-spaced .toolbar-spaced__item:not(:disabled):hover {
+    background: var(--button-hover-bg);
+  }
+}
+
+.toolbar-spaced .toolbar-spaced__item[aria-checked="true"] {
+  background: var(--color-surface-primary-container);
+  color: var(--color-on-primary-container);
+}
+
+.toolbar-spaced .toolbar-spaced__item:disabled {
+  cursor: default;
+  color: var(--color-disabled);
+}
+
+.toolbar-spaced .toolbar-spaced__item:focus-visible {
+  outline: 2px solid var(--spaced-ring);
+  outline-offset: -2px;
+}
+
+.toolbar-spaced .toolbar-spaced__item-icon {
+  display: grid;
+  place-items: center;
+  width: var(--spaced-icon);
+  height: var(--spaced-icon);
+}
+
+.toolbar-spaced .toolbar-spaced__item-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.toolbar-spaced .toolbar-spaced__item-label {
+  flex: 1;
+}
+
+.toolbar-spaced .toolbar-spaced__item-key {
+  font-size: 0.75rem;
+  color: var(--keybinding-color);
+}
+
+/* narrow tablets (portrait): slimmer columns, still 44px tall */
+@media (max-width: 860px) {
+  .toolbar-spaced {
+    --spaced-target-width: 40px;
+    --spaced-chip: 36px;
+    --spaced-group-gap: 9px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .toolbar-spaced {
+    --spaced-motion: 0ms;
+  }
+}
